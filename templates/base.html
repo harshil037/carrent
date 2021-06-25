@@ -25,12 +25,16 @@
 								<a href="{% url 'index' %}" class="logo">
 									<span class="fa fa-car"></span> <span class="title">CAR RENTAL WEBSITE</span>
 								</a>
-
 							<!-- Nav -->
 								<nav>
 									<ul>
-										<li class = "title"><a href=""> Login </a> </li>
+										{% if user.is_authenticated %}
+										<li class = "title"><a>Welcome {{ user.username }}</a></li>
+										<li class = "title"><a href="{% url 'logout' %}">Logout</a></li>
+										{% else %}
+										<li class = "title"><a href="{% url 'login' %}"> Login </a> </li>
 										<li><a href="{% url 'register' %} "> Sign Up </a></li>
+										{% endif %}
 										<li><a href="#menu">Menu</a></li>
 									</ul>
 								</nav>
