@@ -2,34 +2,6 @@
 
 {% block title %}Home{% endblock title %}
 
-<!-- Menu -->
-				{% block menu %}
-					<nav id="menu">
-						<h2>Menu</h2>
-						<ul>
-							<li><a href="{% url 'index' %}">Home</a></li>
-
-							<li><a href="{% url 'offers' %}">Offers</a></li>
-
-							<li><a href="{% url 'fleet' %}">Fleet</a></li>
-
-							<li>
-								<a href="#" class="dropdown-toggle">About</a>
-
-								<ul>
-									<li class = "active"><a href="{% url 'about' %}">About Us</a></li>
-									<li><a href="{% url 'team' %}">Team</a></li>
-									<li><a href="{% url 'testimonials' %}">Testimonials</a></li>
-									<li><a href="{% url 'faq' %}">FAQ</a></li>
-									<li><a href="{% url 'terms' %}">Terms</a></li>
-								</ul>
-							</li>
-							<li><a href="contact.html">Contact Us</a></li>
-						</ul>
-					</nav>
-				{% endblock menu %}
-
-
 {% block body %}
 
 
