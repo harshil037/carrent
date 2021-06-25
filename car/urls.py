@@ -11,7 +11,8 @@ urlpatterns = [
     path("offers", views.offers, name='offers'),
     path("terms", views.terms, name='terms'),
     path("testimonials", views.testimonials, name='testimonials'),
-    path("register", views.register_request, name="register")
+    path("register", views.register_request, name="register"),
+    path("login", views.login_request, name="login"),
 
     #contact pandenig
 ]
