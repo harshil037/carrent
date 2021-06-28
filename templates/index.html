@@ -37,6 +37,13 @@
 						<br>
 
 						<div class="inner">
+							{% if messages %}
+        						{% for message in messages %}
+  									<ul class="messages" style="margin-top:-45px;padding:20px;list-style-type:none;color: #ffffff;background-color: {% if message.tags == 'error' %}#f56342{% elif message.tags == 'success' or message.tags == "info" %}#3dd94f{% endif %};">
+    									<li>{{ message }}</li>
+	      						{% endfor %}
+			  					</ul>
+		  						{% endif %}
 							<!-- About Us -->
 							<header id="inner">
 								<h1>Rent a car at low prices</h1>
