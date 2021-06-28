@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}User Profile | Car Rental Website{% endblock %}
+{% block body %}
+    <div class="container jumbotron py-5">
+        <div class="conatainer">
+            <form method='POST'>
+                <h1>Profile</h1>
+                {%csrf_token%}
+                {% load crispy_forms_tags %}
+                {{u_form|crispy}}
+            <button type='submit'>Save</button>
+        </form>
+        </div>
+    </div>
+{% endblock %}

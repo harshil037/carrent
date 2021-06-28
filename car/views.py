@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.contrib.auth.models import User
-from .forms import NewUserForm
+from .forms import NewUserForm, UserUpdateForm
 from django.contrib.auth import login
 from django.contrib import messages
 from django.core.mail import send_mail, BadHeaderError
@@ -12,7 +12,7 @@ from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -112,4 +112,18 @@ def password_reset_request(request):
 					return redirect ("/password_reset/done/")
 	password_reset_form = PasswordResetForm()
 	return render(request=request, template_name="password/password_reset.html", context={"password_reset_form":password_reset_form})
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST,instance=request.user)
+        if u_form.is_valid():
+            u_form.save()
+            messages.success(request,'Your Profile has been updated!')
+            return redirect('profile')
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+
+    context={'u_form': u_form}
+    return render(request, 'user/profile.html',context )
     # contact pending

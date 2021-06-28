@@ -2,14 +2,19 @@
 {% block title %}Login | Car Rental{% endblock title %}
 {% block body %}
 <div class="container jumbotron py-5">
-    <h1>Login</h1>
     <form method="POST">
+    {% if user.is_authenticated %}
+      <h2>You are already logged in as {{ user.username }}.</h2>
+      <p class="text-left"><a href="{% url 'index' %}">Click here</a> to go to homepage..</p>
+    {% else %}
+      <h1>Login</h1>
       {% csrf_token %}
       {% load crispy_forms_tags %}
       {{ login_form|crispy }}
-      <p class="text-center"><a href="{% url 'password_reset' %}">Forgot password?</a>.</p>
+      <p class="text-left"><a href="{% url 'password_reset' %}">Forgot password?</a>.</p>
       <button class="primary" type="submit">Login</button>
     </form>
     <p class="text-center">Don't have an account? <a href="{% url 'register' %}">Create an account</a>.</p>
+    {% endif %}
   </div>
 {% endblock body %}
