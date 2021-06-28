@@ -10,12 +10,25 @@
       {% csrf_token %}
       {% load crispy_forms_tags %}
       {% if messages %}
-        {% for message in messages %}
-  			<ul class="messages" style="padding:20px;list-style-type:none;color: #ffffff;background-color: {% if message.tags == 'error' %}#f56342{% elif message.tags == 'success' %}#3dd94f{% endif %};">
-    			<li>{{ message }}</li>
-	      {% endfor %}
-			  </ul>
-		  {% endif %}
+        					{% for message in messages %}
+								{% if message.tags == 'info' %}
+									<div class="alert alert-warning alert-dismissible fade show" role="alert">
+										{{message}}
+										<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+									</div>
+								{% elif message.tags == 'success' %}
+									<div class="alert alert-success alert-dismissible fade show" role="alert">
+										<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+							  			{{message}}
+									</div>
+								{% elif message.tags == 'error' %}
+									<div class="alert alert-danger alert-dismissable fade show" role="alert">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  										{{message}}
+									</div>
+								{% endif %}
+							{% endfor %}
+		  				{% endif %}
       {{ login_form|crispy }}
       <p class="text-left"><a href="{% url 'password_reset' %}">Forgot password?</a>.</p>
       <button class="primary" type="submit">Login</button>
