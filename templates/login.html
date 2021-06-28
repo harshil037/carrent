@@ -7,6 +7,7 @@
       {% csrf_token %}
       {% load crispy_forms_tags %}
       {{ login_form|crispy }}
+      <p class="text-center"><a href="{% url 'password_reset' %}">Forgot password?</a>.</p>
       <button class="primary" type="submit">Login</button>
     </form>
     <p class="text-center">Don't have an account? <a href="{% url 'register' %}">Create an account</a>.</p>
