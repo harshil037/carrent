@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.contrib.auth.models import User
+from .models import Contact
 from .forms import NewUserForm, UserUpdateForm
 from django.contrib.auth import login
 from django.contrib import messages
@@ -126,4 +127,17 @@ def profile(request):
 
     context={'u_form': u_form}
     return render(request, 'user/profile.html',context )
-    # contact pending
+    
+def contact(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        subject = request.POST.get('subject')
+        notes = request.POST.get('notes')
+        contact = Contact(name=name, email=email, subject=subject, notes=notes)
+        
+        contact.save()
+        messages.success(request, 'Your message has been sent')
+        gotoid = "footerform"
+    return redirect("/#footerform")
+
