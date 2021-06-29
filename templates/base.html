@@ -81,16 +81,18 @@
 								<div class="container" style="display:flex;">
 								<section style="flex-basis:50%;flex-grow:0;">
 								<ul class="alt">
-									<li><span class="fa fa-user"></span><a href="#">Account</a></li>
-									<li><span class="fa fa-info-circle"></span> <a href="#">About Us</a></li>
-									<li><span class="fa fa-quote-left"></span> <a href="#">Testimonials</a></li>
+									<li><span class="fa fa-users"></span><a href="{% url 'team' %}">Team</a></li>
+									<li><span class="fa fa-question"></span> <a href="{% url 'faq' %}">FAQs</a></li>
+									<li><span class="fa fa-file-contract"></span> <a href="{% url 'terms' %}">Terms</a></li>
 								</ul>
 								</section>
 								<section style="flex-basis:50%;flex-grow:0;">
 								<ul class="alt">
-									<li><span class="fa fa-users"></span><a href="#">Team</a></li>
-									<li><span class="fa fa-question"></span> <a href="#">FAQs</a></li>
-									<li><span class="fa fa-file-contract"></span> <a href="#">Terms</a></li>
+									{% if user.is_authenticated %}
+									<li><span class="fa fa-user"></span><a href="{% url 'profile' %}">Account</a></li>
+									{% endif %}
+									<li><span class="fa fa-info-circle"></span> <a href="{% url 'about' %}">About Us</a></li>
+									<li><span class="fa fa-quote-left"></span> <a href="{% url 'testimonials' %}">Testimonials</a></li>
 								</ul>
 								</section>
 								</div>
