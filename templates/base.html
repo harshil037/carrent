@@ -76,35 +76,24 @@
 					<footer id="footer">
 						<div class="inner">
 							<section>
-								<h2>Contact Us</h2>
-								<form method="post" action="{% url 'contact' %}" id="footerform">
-									{% csrf_token %}
-									<div class="fields">
-										<div class="field half">
-											<input type="text" name="name" id="name" placeholder="Name" />
-										</div>
-
-										<div class="field half">
-											<input type="text" name="email" id="email" placeholder="Email" />
-										</div>
-
-										<div class="field">
-											<input type="text" name="subject" id="subject" placeholder="subject" />
-										</div>
-
-										<div class="field">
-											<textarea name="notes" id="notes"  rows="3" placeholder="Notes"></textarea>
-										</div>
-
-										<div class="field text-right">
-											<label>&nbsp;</label>
-
-											<ul class="actions">
-												<li><input type="submit" value="Send Message" class="primary" /></li>
-											</ul>
-										</div>
-									</div>
-								</form>
+								<h2><span class="fa fa-car"></span> Car Rental Website</h2>
+								<h3>Useful Links</h2>
+								<div class="container" style="display:flex;">
+								<section style="flex-basis:50%;flex-grow:0;">
+								<ul class="alt">
+									<li><span class="fa fa-user"></span><a href="#">Account</a></li>
+									<li><span class="fa fa-info-circle"></span> <a href="#">About Us</a></li>
+									<li><span class="fa fa-quote-left"></span> <a href="#">Testimonials</a></li>
+								</ul>
+								</section>
+								<section style="flex-basis:50%;flex-grow:0;">
+								<ul class="alt">
+									<li><span class="fa fa-users"></span><a href="#">Team</a></li>
+									<li><span class="fa fa-question"></span> <a href="#">FAQs</a></li>
+									<li><span class="fa fa-file-contract"></span> <a href="#">Terms</a></li>
+								</ul>
+								</section>
+								</div>
 							</section>
 							<section>
 								<h2>Contact Info</h2>

@@ -1,13 +1,14 @@
+from django.contrib.messages.api import error
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.contrib.auth.models import User
 from .models import Contact
-from .forms import NewUserForm, UserUpdateForm
+from .forms import ContactForm, NewUserForm, UserUpdateForm
 from django.contrib.auth import login
 from django.contrib import messages
-from django.core.mail import send_mail, BadHeaderError
-from django.http import HttpResponse
+from django.core.mail import message, send_mail, BadHeaderError
+from django.http import HttpResponse, request
 from django.template.loader import render_to_string
 from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
@@ -129,15 +130,16 @@ def profile(request):
     return render(request, 'user/profile.html',context )
     
 def contact(request):
-    if request.method == "POST":
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        subject = request.POST.get('subject')
-        notes = request.POST.get('notes')
-        contact = Contact(name=name, email=email, subject=subject, notes=notes)
-        
-        contact.save()
-        messages.success(request, 'Your message has been sent')
-        gotoid = "footerform"
-    return redirect("/#footerform")
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your contact information and message was successfully submitted.")
+            return redirect("contact")
+        else:
+            message.error(request,"There was an error submitting your query. Please try again later.")
+    form = ContactForm()
+    context = {'form': form}
+    return render(request, 'contact.html', context)
+    #return redirect("/#footerform")
 
