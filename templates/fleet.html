@@ -15,106 +15,20 @@
 
 							<!-- Fleet -->
 							<section class="tiles">
+							{% for car in cars %}
 								<article class="style1">
 									<span class="image">
-										<img src="static/images/product-1-720x480.jpg" alt="" />
+										<img src="/{{BASIC_DIR}}{{ car.carImg }}" alt="" />
 									</span>
 									<a href="#footer" class="scrolly">
-										<h2>SEDAN 4 sitter car, Civic</h2>
+										<h2>{{ car.carType }}</h2>
 										
-										<p>price from: <strong> ₹ 500</strong>/day</p>
+										<p>price from: <strong> ₹ {{ car.price }}</strong>/day</p>
 
 										
 									</a>
 								</article>
-								<article class="style2">
-									<span class="image">
-										<img src="static/images/product-2-720x480.jpg" alt="" />
-									</span>
-									<a href="#footer" class="scrolly">
-										<h2>SEDAN 4 sitter car, Civic</h2>
-										
-										<p>price from: <strong> $ 140.00</strong> per weekend</p>
-
-										<p>
-											<i class="fa fa-user"></i> 5 &nbsp;&nbsp;
-											<i class="fa fa-briefcase"></i> 4 &nbsp;&nbsp;
-											<i class="fa fa-sign-out"></i> 4 &nbsp;&nbsp;
-											<i class="fa fa-cog"></i> A
-										</p>
-									</a>
-								</article>
-								<article class="style3">
-									<span class="image">
-										<img src="static/images/product-3-720x480.jpg" alt="" />
-									</span>
-									<a href="#footer" class="scrolly">
-										<h2>Lorem ipsum dolor sit amet, consectetur</h2>
-										
-										<p>price from: <strong> $ 140.00</strong> per weekend</p>
-
-										<p>
-											<i class="fa fa-user"></i> 5 &nbsp;&nbsp;
-											<i class="fa fa-briefcase"></i> 4 &nbsp;&nbsp;
-											<i class="fa fa-sign-out"></i> 4 &nbsp;&nbsp;
-											<i class="fa fa-cog"></i> A
-										</p>
-									</a>
-								</article>
-
-								<article class="style4">
-									<span class="image">
-										<img src="static/images/product-4-720x480.jpg" alt="" />
-									</span>
-									<a href="#footer" class="scrolly">
-										<h2>Lorem ipsum dolor sit amet, consectetur</h2>
-										
-										<p>price from: <strong> $ 140.00</strong> per weekend</p>
-
-										<p>
-											<i class="fa fa-user"></i> 5 &nbsp;&nbsp;
-											<i class="fa fa-briefcase"></i> 4 &nbsp;&nbsp;
-											<i class="fa fa-sign-out"></i> 4 &nbsp;&nbsp;
-											<i class="fa fa-cog"></i> A
-										</p>
-									</a>
-								</article>
-
-								<article class="style5">
-									<span class="image">
-										<img src="static/images/product-5-720x480.jpg" alt="" />
-									</span>
-									<a href="#footer" class="scrolly">
-										<h2>Lorem ipsum dolor sit amet, consectetur</h2>
-										
-										<p>price from: <strong> $ 140.00</strong> per weekend</p>
-
-										<p>
-											<i class="fa fa-user"></i> 5 &nbsp;&nbsp;
-											<i class="fa fa-briefcase"></i> 4 &nbsp;&nbsp;
-											<i class="fa fa-sign-out"></i> 4 &nbsp;&nbsp;
-											<i class="fa fa-cog"></i> A
-										</p>
-									</a>
-								</article>
-
-								<article class="style6">
-									<span class="image">
-										<img src="static/images/product-6-720x480.jpg" alt="" />
-									</span>
-									<a href="#footer" class="scrolly">
-										<h2>Lorem ipsum dolor sit amet, consectetur</h2>
-										
-										<p>price from: <strong> $ 140.00</strong> per weekend</p>
-
-										<p>
-											<i class="fa fa-user"></i> 5 &nbsp;&nbsp;
-											<i class="fa fa-briefcase"></i> 4 &nbsp;&nbsp;
-											<i class="fa fa-sign-out"></i> 4 &nbsp;&nbsp;
-											<i class="fa fa-cog"></i> A
-										</p>
-									</a>
-								</article>
+							{% endfor %}
 							</section>
 						</div>
 					</div>

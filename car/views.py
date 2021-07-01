@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.contrib.auth.models import User
-from .models import Contact
+from .models import Contact, Fleet
 from .forms import ContactForm, NewUserForm, UserUpdateForm
 from django.contrib.auth import login
 from django.contrib import messages
@@ -143,3 +143,6 @@ def contact(request):
     return render(request, 'contact.html', context)
     #return redirect("/#footerform")
 
+def fleet(request):
+    cars = Fleet.objects.all()
+    return render(request,"fleet.html",{'cars':cars})
