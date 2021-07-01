@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.contrib.auth.models import User
-from .models import Contact, Fleet
+from .models import Contact, Fleet, Testimonials
 from .forms import ContactForm, NewUserForm, UserUpdateForm
 from django.contrib.auth import login
 from django.contrib import messages
@@ -46,9 +46,6 @@ def offers(request):
 def terms(request):
     return render(request, 'terms.html')
 
-
-def testimonials(request):
-    return render(request, 'testimonials.html')
 
 
 def register_request(request):
@@ -147,3 +144,7 @@ def contact(request):
 def fleet(request):
     cars = Fleet.objects.all()
     return render(request,"fleet.html",{'cars':cars})
+
+def testimonials(request):
+    feeds = Testimonials.objects.all()
+    return render(request,"testimonials.html",{'feeds':feeds})

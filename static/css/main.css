@@ -3307,3 +3307,10 @@ input, select, textarea {
 			}
 
 		}
+		/* Star */
+		.gray {
+  color: gray;
+}
+.orange {
+  color: orange;
+}

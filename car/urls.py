@@ -19,7 +19,6 @@ urlpatterns = [
     path("profile", views.profile, name="profile"),
     path("password_reset", views.password_reset_request, name="password_reset"),
     path("contact", views.contact , name="contact"),
-    path("fleet", views.fleet , name = "fleet"),
 ]
 
 if settings.DEBUG:

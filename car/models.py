@@ -22,3 +22,12 @@ class Fleet(models.Model):
 
     def __str__(self):
         return self.carType
+
+class Testimonials(models.Model):
+    name = models.CharField(max_length=128)
+    notes = models.TextField()
+    rating = models.IntegerField(max_length=20, default= 0)
+
+    def __str__(self):
+        return self.name
+    
