@@ -18,14 +18,12 @@
 							{% for car in cars %}
 								<article class="style1">
 									<span class="image">
-										<img src="/{{BASIC_DIR}}{{ car.carImg }}" alt="" />
+										<img src="/image/{{ car.carImg }}" alt="" />
 									</span>
 									<a href="#footer" class="scrolly">
 										<h2>{{ car.carType }}</h2>
 										
 										<p>price from: <strong> ₹ {{ car.price }}</strong>/day</p>
-
-										
 									</a>
 								</article>
 							{% endfor %}

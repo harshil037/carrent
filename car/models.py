@@ -15,7 +15,7 @@ class Contact(models.Model):
 class Fleet(models.Model):
     carType = models.CharField(max_length=128)
     plateNo = models.CharField(max_length=10)
-    carImg = models.ImageField(upload_to='fleet/')
+    carImg = models.ImageField(upload_to='media')
     price = models.DecimalField(max_digits=8, decimal_places=2)
     STATUS_CHOICES = [(0,0),(1,1),(2,2)]
     status = models.SmallIntegerField(choices=STATUS_CHOICES)
