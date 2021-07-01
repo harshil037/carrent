@@ -19,8 +19,9 @@ urlpatterns = [
     path("profile", views.profile, name="profile"),
     path("password_reset", views.password_reset_request, name="password_reset"),
     path("contact", views.contact , name="contact"),
+    path("book", views.book, name="book"),
+    path("test", views.test, name="test")
 ]
 
 if settings.DEBUG:
-        urlpatterns += static(settings.MEDIA_URL,
-                              document_root=settings.MEDIA_ROOT)
+        urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

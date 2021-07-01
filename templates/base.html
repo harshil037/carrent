@@ -9,6 +9,17 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.min.css' %}">
 		<link rel="stylesheet" href="{% static '/css/main.css' %}" >
+		<!-- Scripts -->
+		{% comment %} <script src="{% static '/js/jquery.min.js' %}"></script> {% endcomment %}
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="{% static '/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+		<script src="{% static '/js/jquery.scrolly.min.js' %}"></script>
+		<script src="{% static '/js/jquery.scrollex.min.js' %}"></script>
+		<script src="{% static '/js/main.js' %}"></script>
+		{% comment %} Flatpikr {% endcomment %}
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+		
 		<noscript><link rel="stylesheet" href="{% static '/css/noscript.css' %}" ></noscript>
 		<script src="https://kit.fontawesome.com/2b894c513d.js" crossorigin="anonymous"></script>
 		
@@ -125,15 +136,13 @@
 
 			</div>
 
-		<!-- Scripts -->
-			<script src="{% static '/js/jquery.min.js' %}"></script>
-			<script src="{% static '/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-			<script src="{% static '/js/jquery.scrolly.min.js' %}"></script>
-			<script src="{% static '/js/jquery.scrollex.min.js' %}"></script>
-			<script src="{% static '/js/main.js' %}"></script>
-			{% if gotoid %}
-				<script> window.location.hash = '#{{ gotoid }}'; </script>
-			{% endif %}
+		
+			<script>
+			$("#id_pickupDate").flatpickr({
+    			enableTime: true,
+    			dateFormat: "d-m-Y H:i",
+			});
+			</script>
 
 	</body>
 </html>

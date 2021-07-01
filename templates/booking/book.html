@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Book Now | Car Rental Website{% endblock title %}
+{% block body %}
+{% load static %}
+{% comment %} Booking Form {% endcomment %}
+<div class="jumbotron container py-5">
+		{% if messages %}
+        	{% for message in messages %}	
+				{% if message.tags == 'info' %}
+					<div class="alert alert-warning alert-dismissible fade show" role="alert">
+						{{message}}
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					</div>
+				{% elif message.tags == 'success' %}
+					<div class="alert alert-success alert-dismissible fade show" role="alert">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{message}}
+						</div>
+				{% elif message.tags == 'error' %}
+					<div class="alert alert-danger alert-dismissable fade show" role="alert">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						{{message}}
+					</div>
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+	<h1>Book Now</h1>
+	<form method="POST">
+		{% csrf_token %}
+		{% load crispy_forms_tags %}
+		{{ form|crispy }}                    
+		<button class="primary" type="submit">Book Now</button>
+	</form>
+</div>
+{% endblock body %}

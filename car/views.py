@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.contrib.auth.models import User
 from .models import Contact, Fleet, Testimonials
-from .forms import ContactForm, NewUserForm, UserUpdateForm
+from .forms import ContactForm, NewUserForm, UserUpdateForm, BookingForm
 from django.contrib.auth import login
 from django.contrib import messages
 from django.core.mail import message, send_mail, BadHeaderError
@@ -148,3 +148,19 @@ def fleet(request):
 def testimonials(request):
     feeds = Testimonials.objects.all()
     return render(request,"testimonials.html",{'feeds':feeds})
+
+def book(request):
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Success.")
+            return redirect("contact")
+        else:
+            message.error(request,"Error.")
+    form = BookingForm()
+    context = {'form': form}
+    return render(request, 'booking/book.html', context)
+
+def test(request):
+    return render(request,'test.html')

@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.fields.related import ForeignKey
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -26,8 +28,20 @@ class Fleet(models.Model):
 class Testimonials(models.Model):
     name = models.CharField(max_length=128)
     notes = models.TextField()
-    rating = models.IntegerField(max_length=20, default= 0)
+    rating = models.IntegerField(default= 0)
 
     def __str__(self):
         return self.name
-    
+
+class Booking(models.Model):
+    securityProof = models.CharField(max_length=12,unique=True)
+    depositAmount = models.DecimalField(max_digits=5, default=2499,decimal_places=2)
+    isDepositPaid = models.BooleanField()
+    pickupDate = models.DateTimeField()
+    dropDate = models.DateTimeField()
+    bookingDate = models.DateField(auto_now_add='True')
+    # pickupLocationId = models.IntegerField(ForeignKey = )
+    # dropLocationId = models.IntegerField()
+    userId = models.ForeignKey(User, on_delete=models.CASCADE)
+    # paymentId
+
