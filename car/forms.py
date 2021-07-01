@@ -23,7 +23,7 @@ class NewUserForm(UserCreationForm):
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['username','first_name','last_name','email']
 
 class ContactForm(ModelForm):
     class Meta:

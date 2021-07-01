@@ -19,7 +19,8 @@ from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-    return render(request, 'index.html')
+    cars = Fleet.objects.all().order_by('-id')[:3]
+    return render(request, 'index.html', {'cars':cars})
 
 
 def about(request):

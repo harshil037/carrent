@@ -17,7 +17,7 @@ class Fleet(models.Model):
     plateNo = models.CharField(max_length=10)
     carImg = models.ImageField(upload_to='media')
     price = models.DecimalField(max_digits=8, decimal_places=2)
-    STATUS_CHOICES = [(0,0),(1,1),(2,2)]
+    STATUS_CHOICES = [(0,'Available'),(1,'Booked'),(2,'Maintainance')]
     status = models.SmallIntegerField(choices=STATUS_CHOICES)
 
     def __str__(self):
