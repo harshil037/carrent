@@ -9,6 +9,7 @@ def getContactModel(model):
 
 class ContactDetail(admin.ModelAdmin):
     list_display = getContactModel(Contact)
+    readonly_fields = ['notes']
 
 def getFleetModel(model):
     return [field.name for field in model._meta.get_fields()]
