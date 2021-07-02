@@ -1,14 +1,8 @@
+from django.core.validators import MaxValueValidator
 from django.db import models
 from django.db.models.fields.related import ForeignKey
 from django.contrib.auth.models import User
-import datetime
-from django.core.validators import MaxValueValidator, MinValueValidator
-
-def current_year():
-    return datetime.date.today().year
-
-def max_value_current_year(value):
-    return MaxValueValidator(current_year())(value) 
+from django.core.validators import MaxValueValidator, MinValueValidator 
 
 # Create your models here.
 
@@ -21,11 +15,9 @@ class Contact(models.Model):
     def __str__(self):
         return self.name
 class CarModel(models.Model):
-    def year_choices():
-        return [(r,r) for r in range(1984, datetime.date.today().year+1)]
-    modelId = models.IntegerField(primary_key=True)
+    modelId = models.AutoField(primary_key=True)
     modelName = models.CharField(max_length=128, null=False, default='Maruti Suzuki Swift')
-    modelYear = models.IntegerField(validators=[MinValueValidator(1900), max_value_current_year])
+    modelYear = models.PositiveIntegerField(validators=[MinValueValidator(1900), MaxValueValidator(2021)])
     MODELTYPE_CHOICES = [('Hatchback','Hatchback'), ('Sedan','Sedan'), ('SUV','SUV'), ('Luxury','Luxury')]
     modelType = models.CharField(max_length=128, choices = MODELTYPE_CHOICES, default=MODELTYPE_CHOICES[0])
     modelImg = models.ImageField(upload_to='media')
@@ -36,7 +28,7 @@ class CarModel(models.Model):
 
 class Fleet(models.Model):
     plateNo = models.CharField(max_length=10, null= False, unique=True)
-    modelId = models.ForeignKey(CarModel, default=8, on_delete=models.CASCADE)
+    modelId = ForeignKey(CarModel, on_delete=models.CASCADE)
     STATUS_CHOICES = [(0,'Available'),(1,'Booked'),(2,'Maintainance')]
     status = models.SmallIntegerField(choices=STATUS_CHOICES)
 

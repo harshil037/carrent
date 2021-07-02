@@ -26,6 +26,9 @@ admin.site.register(Contact, ContactDetail)
 admin.site.register(Fleet, FleetDetail)
 admin.site.register(Testimonials, TestimonialDetail)
 
+def getCarModelModel(model):
+    return [field.name for field in model._meta.get_fields()]
+
 class CarModelDetail(admin.ModelAdmin):
-    list_display=('modelId','modelName')
+    list_display=('modelId','modelName','modelYear','modelType', 'modelImg','price')
 admin.site.register(CarModel, CarModelDetail)

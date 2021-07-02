@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.contrib.auth.models import User
-from .models import Contact, Fleet, Testimonials
+from .models import Contact, Fleet, Testimonials, CarModel
 from .forms import ContactForm, NewUserForm, UserUpdateForm, BookingForm
 from django.contrib.auth import login
 from django.contrib import messages
@@ -21,7 +21,7 @@ from django.contrib.auth.decorators import login_required
 
 def index(request):
     # Limit number of cars on index page
-    cars = Fleet.objects.filter(status=0).annotate(Count('carModel'))[:3]
+    cars = CarModel.objects.all()[:3]
     return render(request, 'index.html', {'cars':cars})
 
 
@@ -144,7 +144,7 @@ def contact(request):
     #return redirect("/#footerform")
 
 def fleet(request):
-    cars = Fleet.objects.all()
+    cars = CarModel.objects.all()
     return render(request,"fleet.html",{'cars':cars})
 
 def testimonials(request):

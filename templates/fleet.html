@@ -16,17 +16,24 @@
 							<!-- Fleet -->
 							<section class="tiles">
 							{% for car in cars %}
-								<article class="style1">
+								<article class="style4">
 									<span class="image">
-										<img src="/image/{{ car.carImg }}" alt="" />
+										<img src="/image/{{ car.modelImg }}" alt="" />
 									</span>
-									<a href="#footer" class="scrolly">
-										<h2>{{ car.carModel }}</h2>
-										<p><strong>{{ car.carType }}</strong></p>
-										<p>price : <strong> ₹ {{ car.price }}</strong>/day</p>
+									<a href="{% url 'fleet' %}">
+										<h2>{{ car.modelName }}</h2>  {{ car.modelYear }}
+										<p><strong>{{ car.modelType }}</strong></p>
+										<p>price : <strong> ₹ {{ car.price }}</strong> per day</p>
+
+										{% comment %} <p>
+											<i class="fa fa-user"></i> 5 &nbsp;&nbsp;
+											<i class="fa fa-briefcase"></i> 4 &nbsp;&nbsp;
+											<i class="fa fa-sign-out"></i> 4 &nbsp;&nbsp;
+											<i class="fa fa-cog"></i> A
+										</p> {% endcomment %}
 									</a>
 								</article>
-							{% endfor %}
+								{% endfor %}
 							</section>
 						</div>
 					</div>

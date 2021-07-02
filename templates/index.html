@@ -75,12 +75,12 @@
 							{% for car in cars %}
 								<article class="style4">
 									<span class="image">
-										<img src="/image/{{car.carImg}}" alt="" />
+										<img src="/image/{{ car.modelImg }}" alt="" />
 									</span>
-									<a href="fleet.html">
-										<h2>{{ car.carModel }}</h2>
-										<p><strong>{{ car.carType }}</strong></p>
-										<p>price : <strong> $ {{ car.price }}</strong> per day</p>
+									<a href="{% url 'fleet' %}">
+										<h2>{{ car.modelName }}</h2>  {{ car.modelYear }}
+										<p><strong>{{ car.modelType }}</strong></p>
+										<p>price : <strong> ₹ {{ car.price }}</strong> per day</p>
 
 										{% comment %} <p>
 											<i class="fa fa-user"></i> 5 &nbsp;&nbsp;
