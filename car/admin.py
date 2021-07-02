@@ -22,6 +22,7 @@ def getTestimonialModel(model):
 
 class TestimonialDetail(admin.ModelAdmin):
     list_display = getTestimonialModel(Testimonials)
+    readonly_fields = ['notes','rating']
 
 admin.site.register(Contact, ContactDetail)
 admin.site.register(Fleet, FleetDetail)

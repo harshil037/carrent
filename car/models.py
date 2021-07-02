@@ -39,7 +39,7 @@ class Fleet(models.Model):
 class Testimonials(models.Model):
     name = models.CharField(max_length=128)
     notes = models.TextField(editable=False, null=False)
-    rating = models.IntegerField(default= 5)
+    rating = models.IntegerField(editable=False, default= 5, validators=[MinValueValidator(1), MaxValueValidator(5)])
 
     def __str__(self):
         return self.name

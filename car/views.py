@@ -22,7 +22,8 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     # Limit number of cars on index page
     cars = CarModel.objects.all()[:3]
-    return render(request, 'index.html', {'cars':cars})
+    testimonials = Testimonials.objects.all()[:2]
+    return render(request, 'index.html', {'cars':cars, 'testimonials':testimonials})
 
 
 def about(request):

@@ -100,17 +100,12 @@
 							<h2 class="h2">Testimonials</h2>
 							
 							<div class="row">
+							{% for testimonial in testimonials %}
 								<div class="col-sm-6 text-center">
-									<p class="m-n"><em>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt delectus mollitia, debitis architecto recusandae? Quidem ipsa, quo, labore minima enim similique, delectus ullam non laboriosam laborum distinctio repellat quas deserunt voluptas reprehenderit dignissimos voluptatum deleniti saepe. Facere expedita autem quos."</em></p>
-
-									<p><strong> - John Doe</strong></p>
+									<p class="m-n"><em><span class="fa fa-quote-left"></span> {{ testimonial.notes }}</em></p>
+									<p><strong> - {{ testimonial.name }}</strong></p>
 								</div>
-
-								<div class="col-sm-6 text-center">
-									<p class="m-n"><em>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt delectus mollitia, debitis architecto recusandae? Quidem ipsa, quo, labore minima enim similique, delectus ullam non laboriosam laborum distinctio repellat quas deserunt voluptas reprehenderit dignissimos voluptatum deleniti saepe. Facere expedita autem quos."</em></p>
-
-									<p><strong>- John Doe</strong> </p>
-								</div>
+							{% endfor %}
 							</div>
 
 							<p class="text-center"><a href="{% url 'testimonials' %}">Read More &nbsp;<i class="fa fa-long-arrow-right"></i></a></p>
