@@ -78,16 +78,16 @@
 										<img src="/image/{{car.carImg}}" alt="" />
 									</span>
 									<a href="fleet.html">
-										<h2>{{ car.carType }}</h2>
-										
-										<p>price from: <strong> $ {{ car.price }}</strong> per weekend</p>
+										<h2>{{ car.carModel }}</h2>
+										<p><strong>{{ car.carType }}</strong></p>
+										<p>price : <strong> $ {{ car.price }}</strong> per day</p>
 
-										<p>
+										{% comment %} <p>
 											<i class="fa fa-user"></i> 5 &nbsp;&nbsp;
 											<i class="fa fa-briefcase"></i> 4 &nbsp;&nbsp;
 											<i class="fa fa-sign-out"></i> 4 &nbsp;&nbsp;
 											<i class="fa fa-cog"></i> A
-										</p>
+										</p> {% endcomment %}
 									</a>
 								</article>
 								{% endfor %}

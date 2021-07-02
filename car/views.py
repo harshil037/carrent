@@ -1,4 +1,5 @@
 from django.contrib.messages.api import error
+from django.db.models.aggregates import Count
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
@@ -19,7 +20,8 @@ from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-    cars = Fleet.objects.all().order_by('-id')[:3]
+    # Limit number of cars on index page
+    cars = Fleet.objects.filter(status=0).annotate(Count('carModel'))[:3]
     return render(request, 'index.html', {'cars':cars})
 
 

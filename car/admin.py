@@ -1,5 +1,6 @@
 from django.contrib import admin
-from car.models import Contact , Fleet , Testimonials
+from django.db.models.base import Model
+from car.models import CarModel, Contact , Fleet , Testimonials
 
 # Register your models here.
 
@@ -8,7 +9,6 @@ def getContactModel(model):
 
 class ContactDetail(admin.ModelAdmin):
     list_display = getContactModel(Contact)
-
 
 def getFleetModel(model):
     return [field.name for field in model._meta.get_fields()]
@@ -25,3 +25,7 @@ class TestimonialDetail(admin.ModelAdmin):
 admin.site.register(Contact, ContactDetail)
 admin.site.register(Fleet, FleetDetail)
 admin.site.register(Testimonials, TestimonialDetail)
+
+class CarModelDetail(admin.ModelAdmin):
+    list_display=('modelId','modelName')
+admin.site.register(CarModel, CarModelDetail)
