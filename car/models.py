@@ -10,7 +10,7 @@ class Contact(models.Model):
     name = models.CharField(max_length=128)
     email = models.CharField(max_length=128)
     subject = models.CharField(max_length=128)
-    notes = models.TextField()
+    notes = models.TextField(editable=False)
 
     def __str__(self):
         return self.name
