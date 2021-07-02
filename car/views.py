@@ -123,6 +123,9 @@ def profile(request):
             u_form.save()
             messages.success(request,'Your Profile has been updated!')
             return redirect('profile')
+        else:
+            messages.success(request,'There was an error! Please try again later.')
+            return redirect('profile')
     else:
         u_form = UserUpdateForm(instance=request.user)
 
