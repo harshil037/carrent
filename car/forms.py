@@ -36,12 +36,14 @@ class DateTimeInput(forms.DateInput):
     input_type = 'datetime'
 
 class BookingForm(ModelForm):
-    depositAmount = forms.DecimalField(disabled=True)
+    depositAmount = forms.DecimalField(label='Deposit Amount ₹', initial=2499 ,disabled=True)
     securityProof = forms.CharField(required=True, label='Aadhar Number')
-    pickupDate = forms.DateTimeField(widget=forms.DateInput(attrs={'class':'timepicker'}))
+    pickupDate = forms.DateTimeField()
+    dropDate = forms.DateTimeField(input_formats=['%Y/%m/%d %H:%M'])
+    # userId = forms.
     class Meta:
         model = Booking
-        fields = ("securityProof", "pickupDate", "dropDate")
+        fields = ("securityProof", "pickupDate", "pickupLocation")
         # widgets = {
         #     'pickupDate' : DateTimeInput(),
         # }

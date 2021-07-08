@@ -3,146 +3,162 @@
 
 <!DOCTYPE HTML>
 <html lang="en">
-	<head>
-		<title> {% block title %} {% endblock title %} | Car Rental Website </title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.min.css' %}">
-		<link rel="stylesheet" href="{% static '/css/main.css' %}" >
-		
-		{% comment %} Flatpikr {% endcomment %}
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-		<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-		
-		<noscript><link rel="stylesheet" href="{% static '/css/noscript.css' %}" ></noscript>
-		<script src="https://kit.fontawesome.com/2b894c513d.js" crossorigin="anonymous"></script>
-		
-	</head>
-	<body class="is-preload">
-		
-		<!-- Wrapper -->
-			<div id="wrapper">
 
-				<!-- Header -->
-					<header id="header">
-						<div class="inner">
+<head>
+	<title> {% block title %} {% endblock title %} | Car Rental Website </title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static '/css/main.css' %}">
 
-							<!-- Logo -->
-								<a href="{% url 'index' %}" class="logo">
-									<span class="fa fa-car"></span> <span class="title">CAR RENTAL WEBSITE</span>
-								</a>
-							<!-- Nav -->
-								<nav>
-									<ul>
-										{% if user.is_authenticated %}
-										<li class = "title" style="padding-left: 2px;padding-right: 2px;"><a href="{% url 'profile' %}">{{ user.username }}</a></li>
-										<li class = "title" style="padding-left: 2px;padding-right: 2px;"><a href="{% url 'logout' %}">Logout</a></li>
-										{% else %}
-										<li class = "title" style="padding-left: 2px;padding-right: 2px;"><a href="{% url 'login' %}"> Login </a> </li>
-										<li style="padding-left: 2px;padding-right: 2px;"><a href="{% url 'register' %} "> Sign Up </a></li>
-										{% endif %}
-										<li style="padding-left: 2px;padding-right: 2px;"><a href="#menu">Menu</a></li>
-									</ul>
-								</nav>
+	<script src="{% static '/js/jquery.min.js' %}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"
+		integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"
+		integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
 
-						</div>
-					</header>
+	<noscript>
+		<link rel="stylesheet" href="{% static '/css/noscript.css' %}">
+	</noscript>
+	<script src="https://kit.fontawesome.com/2b894c513d.js" crossorigin="anonymous"></script>
 
-				<!-- Menu -->
-				{% block menu %}
-					<nav id="menu">
-						<h2>Menu</h2>
-						<ul>
-							<li><a href="{% url 'index' %}" class="active">Home</a></li>
+</head>
 
-							<li><a href="{% url 'offers' %}">Offers</a></li>
+<body class="is-preload">
 
-							<li><a href="{% url 'fleet' %}">Fleet</a></li>
+	<!-- Wrapper -->
+	<div id="wrapper">
 
-							<li>
-								<a href="#" class="dropdown-toggle">About</a>
+		<!-- Header -->
+		<header id="header">
+			<div class="inner">
 
-								<ul>
-									<li><a href="{% url 'about' %}">About Us</a></li>
-									<li><a href="{% url 'team' %}">Team</a></li>
-									<li><a href="{% url 'testimonials' %}">Testimonials</a></li>
-									<li><a href="{% url 'faq' %}">FAQ</a></li>
-									<li><a href="{% url 'terms' %}">Terms</a></li>
-								</ul>
-							</li>
-							<li><a href="{% url 'contact' %}">Contact Us</a></li>
-						</ul>
-					</nav>
-				{% endblock menu %}
+				<!-- Logo -->
+				<a href="{% url 'index' %}" class="logo">
+					<span class="fa fa-car"></span> <span class="title">CAR RENTAL WEBSITE</span>
+				</a>
+				<!-- Nav -->
+				<nav>
+					<ul>
+						{% if user.is_authenticated %}
+						<li class="title" style="padding-left: 2px;padding-right: 2px;"><a href="{% url 'profile' %}">{{
+								user.username }}</a></li>
+						<li class="title" style="padding-left: 2px;padding-right: 2px;"><a
+								href="{% url 'logout' %}">Logout</a></li>
+						{% else %}
+						<li class="title" style="padding-left: 2px;padding-right: 2px;"><a href="{% url 'login' %}">
+								Login </a> </li>
+						<li style="padding-left: 2px;padding-right: 2px;"><a href="{% url 'register' %} "> Sign Up </a>
+						</li>
+						{% endif %}
+						<li style="padding-left: 2px;padding-right: 2px;"><a href="#menu">Menu</a></li>
+					</ul>
+				</nav>
 
-{% block body %} {% endblock body %}
+			</div>
+		</header>
 
-				<!-- Footer -->
-					<footer id="footer">
-						<div class="inner">
-							<section>
-								<h2><span class="fa fa-car"></span> Car Rental Website</h2>
-								<h3>Useful Links</h2>
-								<div class="container" style="display:flex;">
-								<section style="flex-basis:50%;flex-grow:0;">
+		<!-- Menu -->
+		{% block menu %}
+		<nav id="menu">
+			<h2>Menu</h2>
+			<ul>
+				<li><a href="{% url 'index' %}" class="active">Home</a></li>
+
+				<li><a href="{% url 'offers' %}">Offers</a></li>
+
+				<li><a href="{% url 'fleet' %}">Fleet</a></li>
+
+				<li>
+					<a href="#" class="dropdown-toggle">About</a>
+
+					<ul>
+						<li><a href="{% url 'about' %}">About Us</a></li>
+						<li><a href="{% url 'team' %}">Team</a></li>
+						<li><a href="{% url 'testimonials' %}">Testimonials</a></li>
+						<li><a href="{% url 'faq' %}">FAQ</a></li>
+						<li><a href="{% url 'terms' %}">Terms</a></li>
+					</ul>
+				</li>
+				<li><a href="{% url 'contact' %}">Contact Us</a></li>
+			</ul>
+		</nav>
+		{% endblock menu %}
+
+		{% block body %} {% endblock body %}
+
+		<!-- Footer -->
+		<footer id="footer">
+			<div class="inner">
+				<section>
+					<h2><span class="fa fa-car"></span> Car Rental Website</h2>
+					<h3>Useful Links</h2>
+						<div class="container" style="display:flex;">
+							<section style="flex-basis:50%;flex-grow:0;">
 								<ul class="alt">
 									<li><span class="fa fa-users"></span><a href="{% url 'team' %}">Team</a></li>
 									<li><span class="fa fa-question"></span> <a href="{% url 'faq' %}">FAQs</a></li>
-									<li><span class="fa fa-file-contract"></span> <a href="{% url 'terms' %}">Terms</a></li>
+									<li><span class="fa fa-file-contract"></span> <a href="{% url 'terms' %}">Terms</a>
+									</li>
 								</ul>
-								</section>
-								<section style="flex-basis:50%;flex-grow:0;">
+							</section>
+							<section style="flex-basis:50%;flex-grow:0;">
 								<ul class="alt">
 									{% if user.is_authenticated %}
 									<li><span class="fa fa-user"></span><a href="{% url 'profile' %}">Account</a></li>
 									{% endif %}
-									<li><span class="fa fa-info-circle"></span> <a href="{% url 'about' %}">About Us</a></li>
-									<li><span class="fa fa-quote-left"></span> <a href="{% url 'testimonials' %}">Testimonials</a></li>
-								</ul>
-								</section>
-								</div>
-							</section>
-							<section>
-								<h2>Contact Info</h2>
-
-								<ul class="alt">
-									<li><span class="fa fa-envelope-o"></span> <a href="#">contact@company.com</a></li>
-									<li><span class="fa fa-phone"></span> +1 333 4040 5566 </li>
-									<li><span class="fa fa-map-pin"></span> 212 Barrington Court New York, ABC 10001 United States of America</li>
-								</ul>
-
-								<h2>Follow Us</h2>
-
-								<ul class="icons">
-									<li><a href="#" class="icon style2 fa-twitter"><span class="label">Twitter</span></a></li>
-									<li><a href="#" class="icon style2 fa-facebook"><span class="label">Facebook</span></a></li>
-									<li><a href="#" class="icon style2 fa-instagram"><span class="label">Instagram</span></a></li>
-									<li><a href="#" class="icon style2 fa-linkedin"><span class="label">LinkedIn</span></a></li>
+									<li><span class="fa fa-info-circle"></span> <a href="{% url 'about' %}">About Us</a>
+									</li>
+									<li><span class="fa fa-quote-left"></span> <a
+											href="{% url 'testimonials' %}">Testimonials</a></li>
 								</ul>
 							</section>
-
-							<ul class="copyright">
-								<li>Copyright © 2021 Car Rental Website </li>
-								<li>Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a></li>
-							</ul>
 						</div>
-					</footer>
+				</section>
+				<section>
+					<h2>Contact Info</h2>
 
+					<ul class="alt">
+						<li><span class="fa fa-envelope-o"></span> <a href="#">contact@company.com</a></li>
+						<li><span class="fa fa-phone"></span> +1 333 4040 5566 </li>
+						<li><span class="fa fa-map-pin"></span> 212 Barrington Court New York, ABC 10001 United States
+							of America</li>
+					</ul>
+
+					<h2>Follow Us</h2>
+
+					<ul class="icons">
+						<li><a href="#" class="icon style2 fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon style2 fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon style2 fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon style2 fa-linkedin"><span class="label">LinkedIn</span></a></li>
+					</ul>
+				</section>
+
+				<ul class="copyright">
+					<li>Copyright © 2021 Car Rental Website </li>
+					<li>Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a></li>
+				</ul>
 			</div>
-			<!-- Scripts -->
-		<script src="{% static '/js/jquery.min.js' %}"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script src="{% static '/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-		<script src="{% static '/js/jquery.scrolly.min.js' %}"></script>
-		<script src="{% static '/js/jquery.scrollex.min.js' %}"></script>
-		<script src="{% static '/js/main.js' %}"></script>
-		
-			<script>
-			$("#id_pickupDate").flatpickr({
-    			enableTime: true,
-    			dateFormat: "d-m-Y H:i",
-			});
-			</script>
+		</footer>
 
-	</body>
+	</div>
+	<!-- Scripts -->
+	<script>
+		$(function () {
+		  $("#id_pickupDate").datetimepicker({
+			  minDate: Date.now()
+		  });
+		  $("#id_dropDate").datetimepicker();
+		});
+	  </script>
+	<script src="{% static '/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+	<script src="{% static '/js/jquery.scrolly.min.js' %}"></script>
+	<script src="{% static '/js/jquery.scrollex.min.js' %}"></script>
+	<script src="{% static '/js/main.js' %}"></script>
+
+</body>
+
 </html>

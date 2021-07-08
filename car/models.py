@@ -1,8 +1,11 @@
 from django.core.validators import MaxValueValidator
 from django.db import models
+from django.db.models.enums import Choices
 from django.db.models.fields.related import ForeignKey
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator 
+from django.core.exceptions import ValidationError
+import datetime
 
 # Create your models here.
 
@@ -45,14 +48,18 @@ class Testimonials(models.Model):
         return self.name
 
 class Booking(models.Model):
+    LOCATION_CHOICES = [
+        ('Ahmedabad',(
+            ('railwaystation','Railway Station'),
+            ('airport','Airport')
+        ))
+    ]
     securityProof = models.CharField(max_length=12,unique=True)
     depositAmount = models.DecimalField(max_digits=5, default=2499,decimal_places=2, editable=False)
     isDepositPaid = models.BooleanField()
     pickupDate = models.DateTimeField()
     dropDate = models.DateTimeField()
     bookingDate = models.DateField(auto_now_add='True')
-    # pickupLocationId = models.IntegerField(ForeignKey = )
-    # dropLocationId = models.IntegerField()
+    pickupLocation = models.CharField(default='railway', max_length=128, choices=LOCATION_CHOICES)
     userId = models.ForeignKey(User, on_delete=models.CASCADE)
     # paymentId
-
