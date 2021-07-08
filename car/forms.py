@@ -30,7 +30,7 @@ class UserUpdateForm(forms.ModelForm):
 class ContactForm(ModelForm):
     class Meta:
         model = Contact
-        fields = '__all__'
+        fields = ['name','email', 'subject', 'notes']
 
 class DateTimeInput(forms.DateInput):
     input_type = 'datetime'
