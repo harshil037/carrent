@@ -23,6 +23,26 @@
 		<link rel="stylesheet" href="{% static '/css/noscript.css' %}">
 	</noscript>
 	<script src="https://kit.fontawesome.com/2b894c513d.js" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		function AadharValidation() {
+
+			var regexp = /^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$/;
+			console.log('ok');
+			var x = document.getElementById("id_securityProof").value;
+			if (regexp.test(x)) {
+				
+			}
+			else {
+				window.alert("Sorry, Invalid Aadhar no.");
+			
+			}
+		}
+	</script>
+	<script>
+		$('#book_button').click(function(){
+			AadharValidation();
+		});
+	</script>
 
 </head>
 
@@ -43,8 +63,7 @@
 				<nav>
 					<ul>
 						{% if user.is_authenticated %}
-						<li class="title" style="padding-left: 2px;padding-right: 2px;"><a href="{% url 'profile' %}">{{
-								user.username }}</a></li>
+						<li class="title" style="padding-left: 2px;padding-right: 2px;"><a href="{% url 'profile' %}">{{ user.username }}</a></li>
 						<li class="title" style="padding-left: 2px;padding-right: 2px;"><a
 								href="{% url 'logout' %}">Logout</a></li>
 						{% else %}
@@ -148,12 +167,12 @@
 	<!-- Scripts -->
 	<script>
 		$(function () {
-		  $("#id_pickupDate").datetimepicker({
-			  minDate: Date.now()
-		  });
-		  $("#id_dropDate").datetimepicker();
+			$("#id_pickupDate").datetimepicker({
+				minDate: Date.now()
+			});
+			$("#id_dropDate").datetimepicker();
 		});
-	  </script>
+	</script>
 	<script src="{% static '/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 	<script src="{% static '/js/jquery.scrolly.min.js' %}"></script>
 	<script src="{% static '/js/jquery.scrollex.min.js' %}"></script>

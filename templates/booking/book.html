@@ -29,7 +29,7 @@
 		{% csrf_token %}
 		{% load crispy_forms_tags %}
 		{{ form|crispy }}                    
-		<button class="primary" type="submit">Book Now</button>
+		<button class="primary" id="book_button" type="submit">Book Now</button>
 	</form>
 </div>
 {% endblock body %}

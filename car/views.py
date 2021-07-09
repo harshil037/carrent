@@ -155,6 +155,7 @@ def testimonials(request):
     feeds = Testimonials.objects.all()
     return render(request,"testimonials.html",{'feeds':feeds})
 
+@login_required(login_url='login')
 def book(request):
     if request.method == 'POST':
         form = BookingForm(request.POST)
@@ -162,8 +163,7 @@ def book(request):
             form.save()
             messages.success(request, "Success.")
             return redirect("contact")
-        else:
-            message.error(request,"Error.")
+        
     form = BookingForm()
     context = {'form': form}
     return render(request, 'booking/book.html', context)

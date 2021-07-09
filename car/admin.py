@@ -1,8 +1,12 @@
 from django.contrib import admin
 from django.db.models.base import Model
-from car.models import CarModel, Contact , Fleet , Testimonials
+from car.models import CarModel, Contact , Fleet , Testimonials, Booking
 
 # Register your models here.
+def getBookingModel(model):
+    return [field.name for field in model._meta.get_fields() ]
+class BookingDetail(admin.ModelAdmin):
+    list_display = getBookingModel(Booking)
 
 def getContactModel(model):
     return [field.name for field in model._meta.get_fields()]
@@ -27,6 +31,7 @@ class TestimonialDetail(admin.ModelAdmin):
 admin.site.register(Contact, ContactDetail)
 admin.site.register(Fleet, FleetDetail)
 admin.site.register(Testimonials, TestimonialDetail)
+admin.site.register(Booking, BookingDetail)
 
 def getCarModelModel(model):
     return [field.name for field in model._meta.get_fields()]

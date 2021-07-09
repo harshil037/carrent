@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator 
 from django.core.exceptions import ValidationError
 import datetime
+from django_cryptography.fields import encrypt
 
 # Create your models here.
 
@@ -50,16 +51,18 @@ class Testimonials(models.Model):
 class Booking(models.Model):
     LOCATION_CHOICES = [
         ('Ahmedabad',(
-            ('railwaystation','Railway Station'),
-            ('airport','Airport')
+            ('ahmrailway','Railway Station'),
+            ('ahmairport','Ahmedabad Airport')
         ))
     ]
-    securityProof = models.CharField(max_length=12,unique=True)
-    depositAmount = models.DecimalField(max_digits=5, default=2499,decimal_places=2, editable=False)
+    securityProof = encrypt(models.CharField(max_length=256))
+    depositAmount = models.DecimalField(max_digits=5, default=2499,decimal_places=2)
     isDepositPaid = models.BooleanField()
     pickupDate = models.DateTimeField()
     dropDate = models.DateTimeField()
     bookingDate = models.DateField(auto_now_add='True')
-    pickupLocation = models.CharField(default='railway', max_length=128, choices=LOCATION_CHOICES)
+    pickupLocation = models.CharField(default='ahmrailway', max_length=128, choices=LOCATION_CHOICES)
+    dropLocation = models.CharField(default='ahmrailway', max_length=128, choices=LOCATION_CHOICES)
+    creationDate = models.DateTimeField(auto_now_add=True)
     userId = models.ForeignKey(User, on_delete=models.CASCADE)
     # paymentId
