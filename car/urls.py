@@ -22,6 +22,7 @@ urlpatterns = [
     path("book", views.book, name="book"),
     path("book/<int:modelId>", views.book, name="book"),
     path("bookingdetails", views.bookingdetails, name="bookingdetails"),
+    path("userbookings", views.userbookings, name="userbookings"),
     path("bookingdetails/[<modelId>,<bookingId>]", views.bookingdetails, name="bookingdetails"),
 ]
 

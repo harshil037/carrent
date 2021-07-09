@@ -46,14 +46,13 @@ class BookingForm(ModelForm):
     dropDate = forms.DateField(label='Drop Date ', widget=forms.DateInput(attrs={'type':'date'}))
     pickupLocation = forms.ChoiceField(label='Pickup Location ', choices=LOCATION_CHOICES)
     dropLocation = forms.ChoiceField(label='Drop Location ', choices=LOCATION_CHOICES)
-    userId = forms.ModelChoiceField(queryset=User.objects.all(), widget=forms.HiddenInput())
+    # userId = forms.ModelChoiceField(queryset=User.objects.all(), widget=forms.HiddenInput())
     # carId = forms.ModelChoiceField(queryset=Fleet.objects.all()[:1], widget=forms.HiddenInput())
     class Meta:
         model = Booking
-        fields = ('modelId', 'pickupLocation', 'pickupDate', 'dropLocation', 'dropDate', 'userId')
+        fields = ('modelId', 'pickupLocation', 'pickupDate', 'dropLocation', 'dropDate')
         # widgets = {
         #     'pickupDate' : DateTimeInput(),
         # }
 
-# class BookingDetails(ModelForm):
     

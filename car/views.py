@@ -191,15 +191,22 @@ def bookingdetails(request, modelId, bookingId):
     modelName = getattr(modelObj, 'modelName')
     grossamt = price * days
     totalamt = grossamt + 2499
-    if Fleet.objects.filter(modelId = modelObj.pk, status= 0).exists() :
-        carObj = Fleet.objects.get(modelId = modelObj.pk, status= 0)
-        book1.carId = carObj
-        carObj.status = 1
-        carObj.save()
-        book1.grossAmount = grossamt
-        book1.totalAmount =  totalamt
-        book1.save()
-    else:
-        messages.error(request, "Selected car not available at the moment. Please try again later or choose another car")
-        return redirect('book/4')
+    if request.method == 'POST':
+        if Fleet.objects.filter(modelId = modelObj.pk, status= 0).exists() :
+            carObj = Fleet.objects.get(modelId = modelObj.pk, status= 0)
+            book1.carId = carObj
+            carObj.status = 1
+            carObj.save()
+            book1.userId = request.user
+            book1.grossAmount = grossamt
+            book1.totalAmount =  totalamt
+        else:
+            messages.error(request, "Selected car not available at the moment. Please try again later or choose another car")
+            return redirect('book/4')
+        return redirect("userbookings")
     return render(request, "booking/bookingdetails.html",{'bookingId':bookingId,'price':price,'grossamt':grossamt, 'totalamt':totalamt, 'days':days, 'modelName': modelName,'s_date':s_date,'e_date':e_date})
+
+@login_required(login_url='login')
+def userbookings(request):
+    bookingObj = Booking.objects.all().filter(userId = request.user)
+    return render(request, "booking/userbookings.html", context= {'bookingObj':bookingObj})

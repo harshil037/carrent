@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Bookings | Car Rental Website{% endblock title %}
+{% block body %}
+<div class=" container py-5">
+    <h2 class="title">Transaction History</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Deposit</th>
+            <th>Booking Date</th>
+            <th>Total Amount</th>
+        </tr>
+        {% for booking in bookingObj %}
+            <tr>
+                <td>{{ booking.pk }}</td>
+                <td>{{ booking.depositAmount }}</td>
+                <td>{{ booking.creationDate }}</td>
+                <td>{{ booking.totalAmount }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock body %}
