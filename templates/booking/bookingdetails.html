@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Booking | Car Rental Website{% endblock title %}
+{% block body %}
+{% if messages %}
+        	{% for message in messages %}	
+                {{message}}
+			{% endfor %}
+{% endif %}
+<div class="container jumbotron py-5">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <h1>Booking Summary</h1>
+        <div class="col-sm-6">
+        Booking Id : <strong> {{bookingId}} </strong> <br>
+        Car : <strong> {{ modelName }} </strong><br>
+        Price/day : <strong>₹ {{price}}</strong><br>
+        Pickup Date : <strong>{{ s_date }}</strong><br>
+        Drop Date : <strong>{{ e_date }}</strong><br>
+        Number of days : <strong>{{days}}</strong><br>
+        Gross Amount : <strong>{{ grossamt }}</strong><br>
+        Security Deposi : <strong>₹ 2499</strong><br>
+        Total Payable Amount : <strong>₹ {{ totalamt }}</strong><br><br>
+        <input type="submit" class="primary" value="Continue">
+        </div>
+    </form>
+</div>
+{% endblock body %}
+

@@ -1,10 +1,11 @@
+from django import forms
 from django.contrib.messages.api import error
 from django.db.models.aggregates import Count
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.contrib.auth.models import User
-from .models import Contact, Fleet, Testimonials, CarModel
+from .models import Booking, Contact, Fleet, Testimonials, CarModel
 from .forms import ContactForm, NewUserForm, UserUpdateForm, BookingForm
 from django.contrib.auth import login
 from django.contrib import messages
@@ -16,6 +17,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 # Create your views here.
 
 
@@ -145,7 +147,7 @@ def contact(request):
     form = ContactForm()
     context = {'form': form}
     return render(request, 'contact.html', context)
-    #return redirect("/#footerform")
+    return redirect("/#footerform")
 
 def fleet(request):
     cars = CarModel.objects.all()
@@ -156,17 +158,48 @@ def testimonials(request):
     return render(request,"testimonials.html",{'feeds':feeds})
 
 @login_required(login_url='login')
-def book(request):
+def book(request, modelId = 4):
     if request.method == 'POST':
         form = BookingForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Success.")
-            return redirect("contact")
         
-    form = BookingForm()
+        if form.is_valid():
+            modelId = form.cleaned_data['modelId']
+            bookingId = form.save()
+            messages.success(request, "Success.")
+            return redirect("bookingdetails",modelId=modelId,bookingId = bookingId.pk)
+        else:
+            messages.error(request, "Error")
+        
+    form = BookingForm(initial={'userId':request.user, 'modelId': modelId})
     context = {'form': form}
     return render(request, 'booking/book.html', context)
 
-def test(request):
-    return render(request,'test.html')
+@login_required(login_url='login')
+def bookingdetails(request, modelId, bookingId):
+    book1 = Booking.objects.get(pk = bookingId)
+    s_date = getattr(book1, 'pickupDate')
+    e_date = getattr(book1, 'dropDate')
+    date_format = "%Y-%m-%d"
+    a = datetime.strptime(str(s_date), date_format)
+    b = datetime.strptime(str(e_date), date_format)
+    delta = b - a
+    days = delta.days
+    # car1 = Fleet.objects.filter(pk = book1.carId)
+    modelId = modelId
+    modelObj = CarModel.objects.get(modelName = modelId)
+    price = getattr(modelObj, 'price')
+    modelName = getattr(modelObj, 'modelName')
+    grossamt = price * days
+    totalamt = grossamt + 2499
+    if Fleet.objects.filter(modelId = modelObj.pk, status= 0).exists() :
+        carObj = Fleet.objects.get(modelId = modelObj.pk, status= 0)
+        book1.carId = carObj
+        carObj.status = 1
+        carObj.save()
+        book1.grossAmount = grossamt
+        book1.totalAmount =  totalamt
+        book1.save()
+    else:
+        messages.error(request, "Selected car not available at the moment. Please try again later or choose another car")
+        return redirect('book/4')
+    return render(request, "booking/bookingdetails.html",{'bookingId':bookingId,'price':price,'grossamt':grossamt, 'totalamt':totalamt, 'days':days, 'modelName': modelName,'s_date':s_date,'e_date':e_date})

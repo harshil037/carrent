@@ -20,7 +20,9 @@ urlpatterns = [
     path("password_reset", views.password_reset_request, name="password_reset"),
     path("contact", views.contact , name="contact"),
     path("book", views.book, name="book"),
-    path("test", views.test, name="test")
+    path("book/<int:modelId>", views.book, name="book"),
+    path("bookingdetails", views.bookingdetails, name="bookingdetails"),
+    path("bookingdetails/[<modelId>,<bookingId>]", views.bookingdetails, name="bookingdetails"),
 ]
 
 if settings.DEBUG:

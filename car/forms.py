@@ -1,7 +1,7 @@
-from django.db.models import fields
+from django.db.models import fields, query
 from django.db.models.enums import Choices
 from django.forms import widgets
-from car.models import Booking, Contact
+from car.models import Booking, CarModel, Contact, Fleet
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -33,9 +33,6 @@ class ContactForm(ModelForm):
         model = Contact
         fields = ['name','email', 'subject', 'notes']
 
-class DateTimeInput(forms.DateInput):
-    input_type = 'datetime'
-
 class BookingForm(ModelForm):
     LOCATION_CHOICES = [
         ('Ahmedabad',(
@@ -43,16 +40,20 @@ class BookingForm(ModelForm):
             ('ahmairport','Ahmedabad Airport')
         ))
     ]
-    depositAmount = forms.DecimalField(label='Deposit Amount ₹', initial=2499 ,disabled=True)
+    modelId = forms.ModelChoiceField(queryset=CarModel.objects.all(), label='Car' )
     securityProof = forms.CharField(required=True, label='Aadhar Number ', widget=forms.TextInput(attrs={'onblur': 'AadharValidation();'}))
-    pickupDate = forms.DateTimeField(label='Pickup Date ')
-    dropDate = forms.DateTimeField(label='Drop Date ')
+    pickupDate = forms.DateField(label='Pickup Date ', widget=forms.DateInput(attrs={'type':'date'}))
+    dropDate = forms.DateField(label='Drop Date ', widget=forms.DateInput(attrs={'type':'date'}))
     pickupLocation = forms.ChoiceField(label='Pickup Location ', choices=LOCATION_CHOICES)
     dropLocation = forms.ChoiceField(label='Drop Location ', choices=LOCATION_CHOICES)
-    # userId = forms.
+    userId = forms.ModelChoiceField(queryset=User.objects.all(), widget=forms.HiddenInput())
+    # carId = forms.ModelChoiceField(queryset=Fleet.objects.all()[:1], widget=forms.HiddenInput())
     class Meta:
         model = Booking
-        fields = ('pickupLocation', 'pickupDate', 'dropLocation', 'dropDate', 'depositAmount')
+        fields = ('modelId', 'pickupLocation', 'pickupDate', 'dropLocation', 'dropDate', 'userId')
         # widgets = {
         #     'pickupDate' : DateTimeInput(),
         # }
+
+# class BookingDetails(ModelForm):
+    

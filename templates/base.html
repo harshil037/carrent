@@ -13,11 +13,11 @@
 
 	<script src="{% static '/js/jquery.min.js' %}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<link rel="stylesheet"
+	{% comment %} <link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"
 		integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"
-		integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+		integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script> {% endcomment %}
 
 	<noscript>
 		<link rel="stylesheet" href="{% static '/css/noscript.css' %}">
@@ -166,12 +166,32 @@
 	</div>
 	<!-- Scripts -->
 	<script>
-		$(function () {
-			$("#id_pickupDate").datetimepicker({
-				minDate: Date.now()
-			});
-			$("#id_dropDate").datetimepicker();
-		});
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+		var yyyy = today.getFullYear();
+		if(dd<10){
+				dd='0'+dd
+			} 
+			if(mm<10){
+				mm='0'+mm
+			} 
+
+		today = yyyy+'-'+mm+'-'+dd;
+		document.getElementById("id_pickupDate").setAttribute("min", today);
+		document.getElementById("id_dropDate").setAttribute("min", today);
+		function parseDate(str) {
+			var mdy = str.split('/');
+			return new Date(mdy[2], mdy[0]-1, mdy[1]);
+		}
+
+		function datediff(id_pickupDate, id_dropDate) {
+			// Take the difference between the dates and divide by milliseconds per day.
+			// Round to nearest whole number to deal with DST.
+			return Math.round((id_dropDate-id_pickupDate)/(1000*60*60*24));
+		}
+		var noofdays = datediff()
+		console.log(noofdays)
 	</script>
 	<script src="{% static '/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 	<script src="{% static '/js/jquery.scrolly.min.js' %}"></script>
