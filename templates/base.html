@@ -86,10 +86,10 @@
 			<ul>
 				<li><a href="{% url 'index' %}" class="active">Home</a></li>
 
-				<li><a href="{% url 'offers' %}">Offers</a></li>
-
 				<li><a href="{% url 'fleet' %}">Fleet</a></li>
-
+				{% if user.is_authenticated %}
+				<li><a href="{% url 'userbookings' %}">Bookings</a></li>
+				{% endif %}
 				<li>
 					<a href="#" class="dropdown-toggle">About</a>
 

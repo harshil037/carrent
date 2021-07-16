@@ -218,16 +218,16 @@ def userbookings(request):
 @login_required(login_url='login')
 def givetestimonial(request):
     if request.method == 'POST':
-        form = GiveTestimonialForm(request.POST)
+        form = GiveTestimonialForm(request.POST, initial={'name':request.user})
         if form.is_valid():
             form.save()
             messages.success(request,'Your Testimonial has been submitted!')
             return redirect('testimonials')
         else:
-            messages.success(request,'There was an error! Please try again later.')
+            messages.error(request,'There was an error! Please try again later.')
             return redirect('userbookings')
     else:
-        form = GiveTestimonialForm(initial={'name': request.user})
+        form = GiveTestimonialForm(initial={'name':request.user})
 
     context={'form': form}
     return render(request, 'givetestimonial.html',context )

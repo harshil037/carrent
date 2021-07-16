@@ -60,8 +60,6 @@ class BookingForm(ModelForm):
         # }
 
 class GiveTestimonialForm(forms.ModelForm):
-    username = forms.ModelChoiceField(queryset=User.objects.all(), widget= forms.HiddenInput())
     class Meta:
         model = Testimonials
         fields = ['name','notes']
-    
