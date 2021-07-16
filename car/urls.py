@@ -24,6 +24,7 @@ urlpatterns = [
     path("bookingdetails", views.bookingdetails, name="bookingdetails"),
     path("userbookings", views.userbookings, name="userbookings"),
     path("bookingdetails/[<modelId>,<bookingId>]", views.bookingdetails, name="bookingdetails"),
+    path("giveTestimonial", views.givetestimonial, name='givetestimonial'),
 ]
 
 if settings.DEBUG:

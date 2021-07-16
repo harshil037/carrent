@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.contrib.auth.models import User
 from .models import Booking, Contact, Fleet, Testimonials, CarModel
-from .forms import ContactForm, NewUserForm, UserUpdateForm, BookingForm
+from .forms import ContactForm, NewUserForm, UserUpdateForm, BookingForm, GiveTestimonialForm
 from django.contrib.auth import login
 from django.contrib import messages
 from django.core.mail import message, send_mail, BadHeaderError
@@ -15,6 +15,7 @@ from django.template.loader import render_to_string
 from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
+from django.views.decorators.csrf import csrf_exempt
 from django.utils.encoding import force_bytes
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
@@ -201,13 +202,32 @@ def bookingdetails(request, modelId, bookingId):
             book1.userId = request.user
             book1.grossAmount = grossamt
             book1.totalAmount =  totalamt
+            book1.status = 'paid'
+            book1.save()
         else:
             messages.error(request, "Selected car not available at the moment. Please try again later or choose another car")
-            return redirect('book/4')
+            return render(request, "booking/bookingdetails.html",{'bookingId':bookingId,'price':price,'grossamt':grossamt, 'totalamt':totalamt, 'days':days, 'modelName': modelName,'s_date':s_date,'e_date':e_date})
         return redirect("userbookings")
     return render(request, "booking/bookingdetails.html",{'bookingId':bookingId,'price':price,'grossamt':grossamt, 'totalamt':totalamt, 'days':days, 'modelName': modelName,'s_date':s_date,'e_date':e_date})
 
-@login_required(login_url='login')
+@csrf_exempt
 def userbookings(request):
     bookingObj = Booking.objects.all().filter(userId = request.user)
     return render(request, "booking/userbookings.html", context= {'bookingObj':bookingObj})
+
+@login_required(login_url='login')
+def givetestimonial(request):
+    if request.method == 'POST':
+        form = GiveTestimonialForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'Your Testimonial has been submitted!')
+            return redirect('testimonials')
+        else:
+            messages.success(request,'There was an error! Please try again later.')
+            return redirect('userbookings')
+    else:
+        form = GiveTestimonialForm(initial={'name': request.user})
+
+    context={'form': form}
+    return render(request, 'givetestimonial.html',context )

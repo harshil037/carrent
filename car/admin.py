@@ -15,20 +15,17 @@ class ContactDetail(admin.ModelAdmin):
     list_display = getContactModel(Contact)
     readonly_fields = ['notes']
 
-def getTestimonialModel(model):
-    return [field.name for field in model._meta.get_fields()]
-class TestimonialDetail(admin.ModelAdmin):
-    list_display = getTestimonialModel(Testimonials)
-    readonly_fields = ['notes','rating']
-
 admin.site.register(Contact, ContactDetail)
-admin.site.register(Testimonials, TestimonialDetail)
 admin.site.register(Booking, BookingDetail)
 
 class CarModelDetail(admin.ModelAdmin):
-    list_display=('modelId','modelName','modelYear','modelType', 'modelImg','price')
+    list_display=('modelId','modelName','modelType', 'modelImg','price')
 admin.site.register(CarModel, CarModelDetail)
 
 class FleetDetail(admin.ModelAdmin):
     list_display=('id', 'plateNo', 'modelId', 'status')
 admin.site.register(Fleet, FleetDetail)
+
+class TestimonialDetail(admin.ModelAdmin):
+    list_display= ('id', 'name', 'notes')
+admin.site.register(Testimonials, TestimonialDetail)

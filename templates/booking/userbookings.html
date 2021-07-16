@@ -2,20 +2,46 @@
 {% block title %}Bookings | Car Rental Website{% endblock title %}
 {% block body %}
 <div class=" container py-5">
-    <h2 class="title">Transaction History</h2>
+{% if messages %}
+        	{% for message in messages %}	
+				{% if message.tags == 'info' %}
+					<div class="alert alert-warning alert-dismissible fade show" role="alert">
+						{{message}}
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					</div>
+				{% elif message.tags == 'success' %}
+					<div class="alert alert-success alert-dismissible fade show" role="alert">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{message}}
+						</div>
+				{% elif message.tags == 'error' %}
+					<div class="alert alert-danger alert-dismissable fade show" role="alert">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						{{message}}
+					</div>
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+    <h2 class="title">Booking History</h2>
     <table>
         <tr>
             <th>ID</th>
             <th>Deposit</th>
             <th>Booking Date</th>
+            <th>Car</th>
             <th>Total Amount</th>
+            <th>Status</th>
+            <th>Actions</th>
         </tr>
         {% for booking in bookingObj %}
             <tr>
                 <td>{{ booking.pk }}</td>
-                <td>{{ booking.depositAmount }}</td>
+                <td>₹2499</td>
                 <td>{{ booking.creationDate }}</td>
+                <td>{{ booking.carId }}</td>
                 <td>{{ booking.totalAmount }}</td>
+                <td>{{ booking.status }}</td>
+                <td><a href="{% url 'givetestimonial' %}"> Give Testimonial</a></td>
             </tr>
         {% endfor %}
     </table>

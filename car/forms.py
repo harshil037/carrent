@@ -1,7 +1,7 @@
 from django.db.models import fields, query
 from django.db.models.enums import Choices
 from django.forms import widgets
-from car.models import Booking, CarModel, Contact, Fleet
+from car.models import Booking, CarModel, Contact, Fleet, Testimonials
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -36,8 +36,12 @@ class ContactForm(ModelForm):
 class BookingForm(ModelForm):
     LOCATION_CHOICES = [
         ('Ahmedabad',(
-            ('ahmrailway','Railway Station'),
+            ('ahmrailway','Ahmedabad Railway Station'),
             ('ahmairport','Ahmedabad Airport')
+        )),
+        ('Mumbai',(
+            ('mumrail', 'Mumbai Railway Statin'),
+            ('mumairport', 'Mumbai Airport')
         ))
     ]
     modelId = forms.ModelChoiceField(queryset=CarModel.objects.all(), label='Car' )
@@ -46,13 +50,18 @@ class BookingForm(ModelForm):
     dropDate = forms.DateField(label='Drop Date ', widget=forms.DateInput(attrs={'type':'date'}))
     pickupLocation = forms.ChoiceField(label='Pickup Location ', choices=LOCATION_CHOICES)
     dropLocation = forms.ChoiceField(label='Drop Location ', choices=LOCATION_CHOICES)
-    # userId = forms.ModelChoiceField(queryset=User.objects.all(), widget=forms.HiddenInput())
+    userId = forms.ModelChoiceField(queryset=User.objects.all(), widget=forms.HiddenInput())
     # carId = forms.ModelChoiceField(queryset=Fleet.objects.all()[:1], widget=forms.HiddenInput())
     class Meta:
         model = Booking
-        fields = ('modelId', 'pickupLocation', 'pickupDate', 'dropLocation', 'dropDate')
+        fields = ('modelId', 'pickupLocation', 'pickupDate', 'dropLocation', 'dropDate', 'userId')
         # widgets = {
         #     'pickupDate' : DateTimeInput(),
         # }
 
+class GiveTestimonialForm(forms.ModelForm):
+    username = forms.ModelChoiceField(queryset=User.objects.all(), widget= forms.HiddenInput())
+    class Meta:
+        model = Testimonials
+        fields = ['name','notes']
     

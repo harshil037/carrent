@@ -22,7 +22,7 @@ class Contact(models.Model):
 class CarModel(models.Model):
     modelId = models.AutoField(primary_key=True)
     modelName = models.CharField(max_length=128, null=False, default='Maruti Suzuki Swift')
-    modelYear = models.PositiveIntegerField(validators=[MinValueValidator(1900), MaxValueValidator(2021)])
+    # modelYear = models.PositiveIntegerField(validators=[MinValueValidator(1900), MaxValueValidator(2021)])
     MODELTYPE_CHOICES = [('Hatchback','Hatchback'), ('Sedan','Sedan'), ('SUV','SUV'), ('Luxury','Luxury')]
     modelType = models.CharField(max_length=128, choices = MODELTYPE_CHOICES, default=MODELTYPE_CHOICES[0])
     modelImg = models.ImageField(upload_to='media')
@@ -41,8 +41,8 @@ class Fleet(models.Model):
         return self.plateNo
 
 class Testimonials(models.Model):
-    name = models.CharField(max_length=128)
-    notes = models.TextField(editable=False, null=False)
+    name = models.CharField(max_length=512)
+    notes = models.TextField(null=False)
     rating = models.IntegerField(editable=False, default= 5, validators=[MinValueValidator(1), MaxValueValidator(5)])
 
     def __str__(self):
@@ -51,13 +51,16 @@ class Testimonials(models.Model):
 class Booking(models.Model):
     LOCATION_CHOICES = [
         ('Ahmedabad',(
-            ('ahmrailway','Railway Station'),
+            ('ahmrailway','Ahmedabad Railway Station'),
             ('ahmairport','Ahmedabad Airport')
+        )),
+        ('Mumbai',(
+            ('mumrail', 'Mumbai Railway Statin'),
+            ('mumairport', 'Mumbai Airport')
         ))
     ]
     securityProof = encrypt(models.CharField(max_length=256))
-    depositAmount = models.DecimalField(max_digits=6, default=2499,decimal_places=2)
-    isDepositPaid = models.BooleanField(default=False)
+    # isDepositPaid = models.BooleanField(default=False)
     pickupDate = models.DateField()
     dropDate = models.DateField()
     pickupLocation = models.CharField(max_length=128, choices=LOCATION_CHOICES)
@@ -67,4 +70,6 @@ class Booking(models.Model):
     totalAmount = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
     grossAmount = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
     carId = models.ForeignKey(Fleet, on_delete=models.CASCADE, null=True)
+    STATUS_CHOICES = [('saved', 'Saved'), ('paid', 'Paid'), ('done','Done')]
+    status = models.CharField(max_length=64, choices=STATUS_CHOICES)
     # paymentId
